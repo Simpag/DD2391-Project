@@ -18,6 +18,16 @@ def get_file(path: str) -> (str | None):
 
     return ret
 
+def get_file_bytes(path: str) -> (bytes | None):
+    ret = None
+    try:
+        with open(path, "rb") as f:
+            ret = f.read()
+    except FileNotFoundError:
+        ERROR_CONSOLE.print("Could not find file!")
+
+    return ret
+
 def generate_key() -> bytes:
     secret_key = os.urandom(16)
     return secret_key
