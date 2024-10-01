@@ -1,0 +1,4 @@
+typer
+pycryptodomex
+numpy
+nuitka
