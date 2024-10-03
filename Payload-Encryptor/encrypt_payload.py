@@ -6,6 +6,7 @@ import os
 import shutil
 
 from Cryptodome.Cipher import AES
+from typing_extensions import Annotated
 
 from console import ERROR_CONSOLE, SUCCESS_CONSOLE, CONSOLE
 from utils import get_file, generate_key, generate_random_variable, get_file_bytes
@@ -14,7 +15,7 @@ app = typer.Typer()
 
 
 @app.command()
-def main(payload_path: str, save_path: str, compile_payload: bool):
+def main(payload_path: str, save_path: str, compile_payload: Annotated[bool, typer.Option('--compile', help="Compile the payload into an executable")] = False):
     if compile_payload:
         compile_and_encrypt_payload(payload_path, save_path)
     else:
