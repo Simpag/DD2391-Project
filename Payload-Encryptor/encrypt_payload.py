@@ -78,8 +78,8 @@ def compile_and_encrypt_payload(payload_path: str, save_path: str):
         return
 
     CONSOLE.print("Starting encryption...")
-    payload = get_file_bytes(payload_path[:-3] + ".exe")
-    os.remove(payload_path[:-3] + ".exe")
+    payload = get_file_bytes(os.path.split(payload_path)[-1][:-3] + ".exe")
+    os.remove(os.path.split(payload_path)[-1][:-3] + ".exe")
 
     if payload is None:
         return
@@ -127,7 +127,7 @@ def compile_and_encrypt_payload(payload_path: str, save_path: str):
         return
 
     SUCCESS_CONSOLE.print(
-        f'Successfully compiled payload to "{payload_path[:-3]}.exe"!'
+        f'Successfully compiled payload to "{os.path.split(payload_path)[-1][:-3]}.exe"!'
     )
 
     os.remove(save_path)
@@ -167,9 +167,9 @@ def compile_payload(payload_path: str):
             return None
 
     CONSOLE.print("Removing build folders...")
-    shutil.rmtree(payload_path[:-3] + ".build")
-    shutil.rmtree(payload_path[:-3] + ".onefile-build")
-    shutil.rmtree(payload_path[:-3] + ".dist")
+    shutil.rmtree(os.path.split(payload_path)[-1][:-3] + ".build")
+    shutil.rmtree(os.path.split(payload_path)[-1][:-3] + ".onefile-build")
+    shutil.rmtree(os.path.split(payload_path)[-1][:-3] + ".dist")
     CONSOLE.print("Successfully compiled!")
 
     return True
