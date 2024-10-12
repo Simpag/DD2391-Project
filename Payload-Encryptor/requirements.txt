@@ -1,4 +1,4 @@
 typer
-pycryptodomex
+pycryptodome
 numpy
 nuitka

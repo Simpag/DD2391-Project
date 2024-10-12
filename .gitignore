@@ -163,3 +163,4 @@ cython_debug/
 
 private_key.pem
 saved_ransomkeys.txt
+config.py
