@@ -15,7 +15,7 @@ This program is a student project and for educational purposes only.
 - **Ransom UI:** A Tkinter window demands a ransom payment for decryption.
 - **Targeted File Types:** The program targets known "productivity file formats" such as `.docx`, `.pdf`, but also video and image files like example `.jpg`, and `.mp4`.
 - **Public Key Encryption:** AES keys are sent encrypted using a RSA public key to a remote server for storage.
-- **Anti-virus protection:** A mixture or payload encryption, string encryption, random file sizes and compilation is used to prevent anti-virus detection.
+- **Anti-virus protection:** A mixture of payload encryption, string encryption, random file sizes and compilation is used to prevent anti-virus detection.
 
 ## How The Ransomware Works
 
