@@ -120,7 +120,26 @@ Help page:
 python encrypt_payload.py --help
 ```
 
+## Testing
+Using a fully up-to-date virtual machine running windows we have been mostly successful. 
+We have been able to encrypt the entire disk, send the encrypted key back to the C2 server and finally been able to decrypt the entire disk. 
+We were able to bypass the windows anti-virus software (windows defender) initially. 
+However, since we allowed windows to automatically upload potential threats to Microsoft, the next day windows was able to identify our virus and stop it from executing.
+This lead us to implement more anti-virus prevention techniques (string encryption and randomized file size) and were once again able to bypass the security.
+We know that Microsoft analysed our virus because we saw pings from Microsoft owned ip addresses to our C2 server which was a rather interesting sight.
 
+Testing our virus evasive capabilities on the popular site [virustotal.com]() we found that it only recieved a 15% detection rate, bypassing major anti-virus software such as Microsoft, BitDefender, Symantec and Kaspersky.
+Link to the report: [https://www.virustotal.com/gui/file/537917c2e5c4b9b3e52c52c4b3f7250c0a49380b5c2655709938c77f1bbc9808/detection](https://www.virustotal.com/gui/file/537917c2e5c4b9b3e52c52c4b3f7250c0a49380b5c2655709938c77f1bbc9808/detection)
+
+<p align="center">
+  <img src="Images/virus_total.png" width=600>
+</p>
+
+## References
+- [Ransomware: Recent advances, analysis, challenges and future research directions](https://www.sciencedirect.com/science/article/pii/S016740482100314X)
+- [Common Antivirus Bypass Techniques](https://www.lmgsecurity.com/common-antivirus-bypass-techniques/)
+- [Antivirus and EDR Bypass Techniques](https://www.vaadata.com/blog/antivirus-and-edr-bypass-techniques/)
+  
 ## Legal Disclaimer
 
 Legal Disclaimer

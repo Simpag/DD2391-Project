@@ -37,6 +37,8 @@ def main(
         ),
     ] = False,
 ):
+    original_path = payload_path
+
     if encrypt_strings:
         payload_path = randomize_payload_strings(payload_path)
 
@@ -49,7 +51,14 @@ def main(
         encrypt_payload(payload_path, save_path)
 
     if encrypt_strings:
-        os.remove(payload_path)
+        new_payload_path = os.path.split(original_path)
+        new_payload_path = new_payload_path[0] + "/string_encrypted_" + new_payload_path[-1]
+        os.remove(new_payload_path)
+
+    if add_randomness:
+        new_payload_path = os.path.split(original_path)
+        new_payload_path = new_payload_path[0] + "/randomized_" + new_payload_path[-1]
+        os.remove(new_payload_path)
 
 
 def add_random_noise(payload_path):
