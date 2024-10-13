@@ -61,7 +61,7 @@ The C2 server handles key generation and distribution for the ransomware. It pro
 ### Running:
 
 ```bash
-uvicorn c2serv:app --reload --host 0.0.0.0 --port 8000
+fastapi run c2serv.py
 ```
 
 
