@@ -34,6 +34,7 @@ This program is a student project and for educational purposes only.
 ### Pre-requisites:
 - Python 3.x
 - Libraries: `pycryptodome`, `tkinter`, `requests`
+- Config: Create a `config.py` file in the Malware directory to configure the C2 server host address. 
 
 
 # Ransomware C2 Server
