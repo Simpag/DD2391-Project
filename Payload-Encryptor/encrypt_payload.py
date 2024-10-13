@@ -30,9 +30,18 @@ def main(
             "--encrypt-strings", help="Encrypts all the strings in the payload"
         ),
     ] = False,
+    add_randomness: Annotated[
+        bool,
+        typer.Option(
+            "--random-size", help="Adds random noise to the payload in order to randomize file size"
+        ),
+    ] = False,
 ):
     if encrypt_strings:
         payload_path = randomize_payload_strings(payload_path)
+
+    if add_randomness:
+        payload_path = add_random_noise(payload_path)
 
     if compile_payload:
         compile_and_encrypt_payload(payload_path, save_path)
@@ -43,8 +52,27 @@ def main(
         os.remove(payload_path)
 
 
+def add_random_noise(payload_path):
+    CONSOLE.print("Adding random noise to payload...")
+    payload = get_file(payload_path)
+
+    new_payload_path = os.path.split(payload_path)
+    new_payload_path = new_payload_path[0] + "/randomized_" + new_payload_path[-1]
+
+    with open(new_payload_path, "w") as f:
+        f.write(payload)
+        f.write("\n")
+        var_name = generate_random_variable(30)
+        f.write(f'{var_name} = """{generate_random_variable(np.random.randint(5e4,1e7))}"""')
+
+    CONSOLE.print("Successfully added random noise!")
+
+    return new_payload_path
+
+
 def randomize_payload_strings(payload_path) -> str:
     """Reads the input file, processes the content, and writes the result to the output file."""
+    CONSOLE.print("Encrypting payload strings...")
     with open(payload_path, "r", encoding="utf-8") as f:
         source_code = f.read()
 
@@ -59,6 +87,8 @@ def randomize_payload_strings(payload_path) -> str:
     new_payload_path = new_payload_path[0] + "/string_encrypted_" + new_payload_path[-1]
     with open(new_payload_path, "w", encoding="utf-8") as f:
         f.write(encoded_code)
+
+    CONSOLE.print("Successfully encrypted payload strings!")
 
     return new_payload_path
 
@@ -208,7 +238,7 @@ def compile_and_encrypt_payload(payload_path: str, save_path: str):
         return
 
     SUCCESS_CONSOLE.print(
-        f'Successfully compiled payload to "{os.path.split(payload_path)[-1][:-3]}.exe"!'
+        f'Successfully compiled payload to "{os.path.split(save_path)[-1][:-3]}.exe"!'
     )
 
     os.remove(save_path)
